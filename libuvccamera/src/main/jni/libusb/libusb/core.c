@@ -27,7 +27,7 @@
 #define LOCAL_DEBUG 0
 
 #define LOG_TAG "libusb/core"
-#if 1	// デバッグ情報を出さない時1
+#if 0	// デバッグ情報を出さない時1
 	#ifndef LOG_NDEBUG
 		#define	LOG_NDEBUG		// LOGV/LOGD/MARKを出力しない時
 		#endif

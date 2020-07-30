@@ -28,7 +28,7 @@
 #define LOCAL_DEBUG 0
 
 #define LOG_TAG "libusb/usbfs"
-#if 1	// デバッグ情報を出さない時1
+#if 0	// デバッグ情報を出さない時1
 	#ifndef LOG_NDEBUG
 		#define	LOG_NDEBUG		// LOGV/LOGD/MARKを出力しない時
 		#endif
@@ -2726,6 +2726,9 @@ static int handle_iso_completion(struct libusb_device_handle *handle,	// XXX add
 
 	usbi_mutex_lock(&itransfer->lock);
 	for (i = 0; i < num_urbs; i++) {
+	    if (tpriv->iso_urbs == 0){
+	        break;
+	    }
 		if (urb == tpriv->iso_urbs[i]) {
 			urb_idx = i + 1;
 			break;
