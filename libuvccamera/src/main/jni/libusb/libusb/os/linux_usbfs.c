@@ -1692,6 +1692,9 @@ static void free_iso_urbs(struct linux_transfer_priv *tpriv)
 {
 	int i;
 	for (i = 0; i < tpriv->num_urbs; i++) {
+	    if(tpriv->iso_urbs == NULL){
+	        break;
+	    }
 		struct usbfs_urb *urb = tpriv->iso_urbs[i];
 		if (!urb)
 			break;
