@@ -108,10 +108,13 @@ uvc_frame_t *uvc_allocate_frame(size_t data_bytes) {
  * @param frame Frame to destroy
  */
 void uvc_free_frame(uvc_frame_t *frame) {
-	if ((frame->data_bytes > 0) && frame->library_owns_data)
-		free(frame->data);
-
-	free(frame);
+    if(frame){
+        if(frame->library_owns_data){
+            if (frame->data && (frame->data_bytes > 0))
+                free(frame->data);
+        }
+        free(frame);
+	}
 }
 
 static inline unsigned char sat(int i) {

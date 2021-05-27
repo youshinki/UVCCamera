@@ -307,6 +307,12 @@ uvc_error_t uvc_open(uvc_device_t *dev, uvc_device_handle_t **devh) {
 	libusb_get_device_descriptor(dev->usb_dev, &desc);
 	internal_devh->is_isight = (desc.idVendor == 0x05ac && desc.idProduct == 0x8501);
 
+    // by yzh
+    if (internal_devh->info->ctrl_if.bcdUVC >= 0x0110){
+        // 1.1、1.5
+        internal_devh->is_isight = 1;
+    }
+
 	if (internal_devh->info->ctrl_if.bEndpointAddress) {
 		UVC_DEBUG("status check transfer:bEndpointAddress=0x%02x", internal_devh->info->ctrl_if.bEndpointAddress);
 		internal_devh->status_xfer = libusb_alloc_transfer(0);

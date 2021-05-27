@@ -2117,6 +2117,10 @@ static int discard_urbs(struct usbi_transfer *itransfer, int first, int last_plu
 static void free_iso_urbs(struct android_transfer_priv *tpriv) {
 	int i;
 	for (i = 0; i < tpriv->num_urbs; i++) {
+	    // 拔出崩溃
+	    if(tpriv->iso_urbs == NULL){
+	        break;
+	    }
 		struct usbfs_urb *urb = tpriv->iso_urbs[i];
 		if (UNLIKELY(!urb))
 			break;
@@ -2729,7 +2733,8 @@ static int handle_iso_completion(struct libusb_device_handle *handle,	// XXX add
 	    if (tpriv->iso_urbs == 0){
 	        break;
 	    }
-		if (urb == tpriv->iso_urbs[i]) {
+	    // 拔出崩溃
+		if (tpriv->iso_urbs != NULL && urb == tpriv->iso_urbs[i]) {
 			urb_idx = i + 1;
 			break;
 		}
